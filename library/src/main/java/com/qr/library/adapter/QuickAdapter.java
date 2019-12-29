@@ -17,9 +17,9 @@ import java.util.Collection;
 import java.util.List;
 
 public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int HEADER_TYPE = 0x00000111;
-    private static final int CONTENT_TYPE = 0x00000222;
-    private static final int FOOTER_TYPE = 0x00000333;
+    public static final int HEADER_TYPE = 0x00000111;
+    public static final int CONTENT_TYPE = 0x00000222;
+    public static final int FOOTER_TYPE = 0x00000333;
 
     private List<T> mData;
     private int mContentResId;
@@ -99,7 +99,7 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public void setHeaderView(@LayoutRes int resourceId) {
-        if(mHeaderResId == resourceId){
+        if (mHeaderResId == resourceId) {
             return;
         }
 
@@ -122,7 +122,7 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public void setFooterView(@LayoutRes int resourceId) {
-        if(mFooterResId == resourceId){
+        if (mFooterResId == resourceId) {
             return;
         }
 
@@ -147,6 +147,18 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public int getItemCount() {
         return mData.size() + getHeaderCount() + getFooterCount();
+    }
+
+    public int getHeaderCount() {
+        return mHeaderResId == -1 ? 0 : 1;
+    }
+
+    public int getFooterCount() {
+        return mFooterResId == -1 ? 0 : 1;
+    }
+
+    public int getContentCount() {
+        return mData.size();
     }
 
     @Override
@@ -246,22 +258,11 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
         }
     }
 
-    private int getHeaderCount() {
-        return mHeaderResId == -1 ? 0 : 1;
-    }
-
-    private int getFooterCount() {
-        return mFooterResId == -1 ? 0 : 1;
-    }
 
     private OnItemClickListener onItemClickListener;
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
-    }
-
-    public OnItemClickListener getOnItemClickListener() {
-        return onItemClickListener;
     }
 
     public interface OnItemClickListener {
@@ -274,10 +275,6 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
         this.onHeaderClickListener = onHeaderClickListener;
     }
 
-    public OnHeaderClickListener getOnHeaderClickListener() {
-        return onHeaderClickListener;
-    }
-
     public interface OnHeaderClickListener {
         void onHeaderClick(QuickAdapter quickAdapter, View view, int position);
     }
@@ -286,10 +283,6 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void setOnFooterClickListener(OnFooterClickListener onFooterClickListener) {
         this.onFooterClickListener = onFooterClickListener;
-    }
-
-    public OnFooterClickListener getOnFooterClickListener() {
-        return onFooterClickListener;
     }
 
     public interface OnFooterClickListener {
@@ -302,10 +295,6 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
         this.onItemLongClickListener = onItemLongClickListener;
     }
 
-    public OnItemLongClickListener getOnItemLongClickListener() {
-        return onItemLongClickListener;
-    }
-
     public interface OnItemLongClickListener {
         boolean onItemLongClick(QuickAdapter quickAdapter, View view, int position);
     }
@@ -314,10 +303,6 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void setOnHeaderLongClickListener(OnHeaderLongClickListener onHeaderLongClickListener) {
         this.onHeaderLongClickListener = onHeaderLongClickListener;
-    }
-
-    public OnHeaderLongClickListener getOnHeaderLongClickListener() {
-        return onHeaderLongClickListener;
     }
 
     public interface OnHeaderLongClickListener {
@@ -330,19 +315,11 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
         this.onFooterLongClickListener = onFooterLongClickListener;
     }
 
-    public OnFooterLongClickListener getOnFooterLongClickListener() {
-        return onFooterLongClickListener;
-    }
-
     public interface OnFooterLongClickListener {
         boolean onFooterLongClick(QuickAdapter quickAdapter, View view, int position);
     }
 
     private OnHeaderConvertListener onHeaderConvertListener;
-
-    public OnHeaderConvertListener getOnHeaderConvertListener() {
-        return onHeaderConvertListener;
-    }
 
     public void setOnHeaderConvertListener(OnHeaderConvertListener onHeaderConvertListener) {
         this.onHeaderConvertListener = onHeaderConvertListener;
@@ -358,10 +335,6 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
         this.onFooterConvertListener = onFooterConvertListener;
     }
 
-    public OnFooterConvertListener getOnFooterConvertListener() {
-        return onFooterConvertListener;
-    }
-
     public interface OnFooterConvertListener {
         void onFooterConvert(FooterViewHolder footerViewHolder);
     }
@@ -370,10 +343,6 @@ public final class QuickAdapter<T> extends RecyclerView.Adapter<RecyclerView.Vie
 
     public void setOnContentConvertListener(OnContentConvertListener<T> onContentConvertListener) {
         this.onContentConvertListener = onContentConvertListener;
-    }
-
-    public OnContentConvertListener<T> getOnContentConvertListener() {
-        return onContentConvertListener;
     }
 
     public interface OnContentConvertListener<T> {
